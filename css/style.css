@@ -1,0 +1,16 @@
+* {
+    padding: 3px;
+    
+}
+
+.divSim {
+    padding-top: 50px;
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+#outputResultado {
+    padding-top: 50px;
+    padding-left: 300px;
+    padding-right: 300px;
+}

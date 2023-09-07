@@ -1,11 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Banco JavaS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
+
 <body>
-    <script src="/Js/app.js"></script> 
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Simulación de Plazos Fijos</h1>
+
+        <!-- DIV PARA MOSTRAR MENSAJES -->
+        <div id="output" class="mb-4"></div>
+
+        <!-- FORMULARIO DE REGISTRO -->
+        <div id="registro" class="mb-4">
+            <h3>Registro</h3>
+            <form>
+                <div class="mb-3">
+                    <label for="nombreUsuarioRegistro" class="form-label">Nombre de usuario (mínimo 8
+                        caracteres):</label>
+                    <input type="text" class="form-control" id="nombreUsuarioRegistro">
+                </div>
+                <div class="mb-3">
+                    <label for="contrasenaRegistro" class="form-label">Contraseña (mínimo 8 caracteres):</label>
+                    <input type="password" class="form-control" id="contrasenaRegistro">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="registrarUsuario()">Registrar</button>
+            </form>
+        </div>
+
+        <!-- FORMULARIO INCIAR SESION -->
+        <div id="inicioSesion">
+            <h3>Iniciar Sesión</h3>
+            <form>
+                <div class="mb-3">
+                    <label for="nombreUsuarioSesion" class="form-label">Nombre de usuario:</label>
+                    <input type="text" class="form-control" id="nombreUsuarioSesion">
+                </div>
+                <div class="mb-3">
+                    <label for="contrasenaSesion" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control" id="contrasenaSesion">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="iniciarSesion()">Ingresar</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- FORMULARIO PLAZO FIJO -->
+    <div class="divSim" id="formularioPesos" style="display: none;">
+        <h2>Plazo Fijo en Pesos</h2>
+        <div class="form-group">
+            <input type="number" class="form-control" id="montoPesos" placeholder="Monto en Pesos">
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control" id="diasPlazoPesos" placeholder="Días del Plazo">
+        </div>
+        <button class="btn btn-success" onclick="realizarPlazoFijoPesos()">Realizar Plazo Fijo en Pesos</button>
+    </div>
+    
+    <!-- DIV PARA MOSTRAR MENSAJES -->
+    <div id="outputResultado" class="mb-4"></div>
+
+    <!-- FORMULARIO PLAZP FIJO DOLAR -->
+    <div class="divSim" id="formularioDolares" style="display: none;">
+        <h2>Plazo Fijo en Dólares</h2>
+        <div class="form-group">
+            <input type="number" class="form-control" id="montoDolares" placeholder="Monto en Dólares">
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control" id="diasPlazoDolares" placeholder="Días del Plazo">
+        </div>
+        <button class="btn btn-success" onclick="realizarPlazoFijoDolares()">Realizar Plazo Fijo en Dólares</button>
+    </div>
+
+
+    <!--MODAL PARA MOSTRAR RESULTADOS -->
+    <div class="modal fade" id="gananciaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">SIMULACION/ES</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="gananciaResultado"></p>
+                    <p id="Simulaciones"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col">
+                <!-- BOTON PARA BORRAR LOCAL STORAGE -->
+                <button id="borrarLocalStorage" class="btn btn-danger">Borrar Mis Simulaciones</button>
+            </div>
+            <div class="col">
+                <!-- BOTON PARA MOSTRAR CONTENIDO EN LOCALSTORAGE -->
+                <button id="mostrarLocalStorage" class="btn btn-primary">Mostrar Mis Simulaciones</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/Js/app.js"></script>
 </body>
+
 </html>

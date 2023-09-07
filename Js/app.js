@@ -1,105 +1,173 @@
-//CREO ARRAY PARA ALMACENAR USUARIOS REGISTRAODS
+
+//DEFINO ARRAY PARA GUARDAR USUARIOS Y CONTRASEÑAS
 const usuarios = [];
 
+//DEFINO FUNCION Y UTILIZO METODO .some PARA QUE NO SE CREEN DOS VECES EL MISMO USUARIO
 function verificoUsuario(nombreUsuario) {
-    // UTILIZO METODO .some() PARA QUE NO SE REPITAN USUARIOS
     return usuarios.some(usuario => usuario.usuario === nombreUsuario);
 }
-// FUNCION PARA REGISTRAR USUARIO
-function registrar() {
-    const usuario = prompt("Ingrese un nombre de usuario (mínimo 8 caracteres):");
-    const contraseña = prompt("Ingrese una contraseña (mínimo 8 caracteres):");
-    // USO if PARA COMPROBAR QUE LOS DATOS REGISTRADOS CUMPLEN LOS REQUISITOS
-    if (usuario.length >= 8 && contraseña.length >= 8) {
-        // SI EL USUARIO NO EXISTE SE AGREGA USANDO .push() AL array usuarios
-        if (!verificoUsuario(usuario)) {
-            usuarios.push({ usuario, contraseña });
-            alert("Registro exitoso");
-            console.log("Registro exitoso");
-            console.log("Usuarios actuales:", usuarios);
+
+//FUNCION PARA CREAR USUARIO Y CONTRASEÑA VINCULANDO A INPUTS DE FORMULARIOS
+function registrarUsuario() {
+    const nombreUsuarioInput = document.getElementById("nombreUsuarioRegistro");
+    const contrasenaInput = document.getElementById("contrasenaRegistro");
+
+    const nombreUsuario = nombreUsuarioInput.value;
+    const contrasena = contrasenaInput.value;
+    //APLICO IF PARA QUE LA INFORMACION CUMPLA CON LOS REQUISITOS
+    if (nombreUsuario.length >= 8 && contrasena.length >= 8) {
+        if (!verificoUsuario(nombreUsuario)) {
+            usuarios.push({ usuario: nombreUsuario, contraseña: contrasena });
+            mostrarMensaje("Registro exitoso");
         } else {
-            alert("El nombre de usuario ya está registrado");
-            console.log("El nombre de usuario ya está registrado");
+            mostrarMensaje("El nombre de usuario ya está registrado");
         }
     } else {
-        alert("Por favor, complete todos los campos usando un mínimo de 8 caracteres");
-        console.log("Por favor, complete todos los campos usando un mínimo de 8 caracteres");
+        mostrarMensaje("Por favor, complete todos los campos usando un mínimo de 8 caracteres");
     }
+
+    // LIMPIO LOS INPUT
+    nombreUsuarioInput.value = "";
+    contrasenaInput.value = "";
 }
+
+//DEFINO FUNCIONES PARA MOSTRAR MSJS VINCULANDO CON SUS RESPECTIVOS OUTPUTS
+function mostrarMensaje(mensaje) {
+    const output = document.getElementById("output");
+    output.innerHTML = `<div class="alert alert-info">${mensaje}</div>`;
+}
+
+function mostrarResultado(errorMensaje) {
+    const output = document.getElementById("outputResultado");
+    output.innerHTML = `<div class="alert alert-info">${errorMensaje}</div>`;
+}
+
 // DEFINO FUNCION CALCULAR GANANCIA
 function calcularGanancia(monto, tasa, dias) {
     return monto * tasa * dias;
 }
-//USO while PARA DESARROLLAR LAS OPCIONES DE REGISTRO E INGRESO, EN case 2 TRAS INGRESAR DESARROLLO EL SIMULADOR DE PLAZO FIJO
-while (true) {
-    const opcion = prompt("Elija una opción:\n1. Registrar\n2. Ingresar\n3. Salir");
 
-    switch (opcion) {
-        case "1":
-            registrar();
-            break;
-        case "2":
-            const usuario = prompt("Ingrese su nombre de usuario:");
-            const contraseña = prompt("Ingrese su contraseña:");
 
-            //UTILIZO METODO .find() PARA VER SI EL USUARIO ESTA REGISTRADO
-            const usuarioEncontrado = usuarios.find(u => u.usuario === usuario);
+//DEFINO LAS FUNCIONES AFUERA PARA QUE SE PARAMETRICEN DENTRO DEL IF Y FUNCIONEN CUANDO SE CUMPLEN LAS CONDICIONES
+function realizarPlazoFijoPesos() { }
+function realizarPlazoFijoDolares() { }
 
-            if (usuarioEncontrado && usuarioEncontrado.contraseña === contraseña) {
-                alert("Inicio de sesión exitoso");
-                console.log("Inicio de sesión exitoso");
+//DEFINO UN FUNCION PARA INICIAR SESION VINCULANDO A INPUTS DE FORMULARIOS
+function iniciarSesion() {
+    const nombreUsuarioInput = document.getElementById("nombreUsuarioSesion");
+    const contrasenaInput = document.getElementById("contrasenaSesion");
 
-                do {
-                    alert("Bienvenido a la Simulación de plazos fijos.");
-                    const opcion = parseInt(prompt("Que operacion quiere realizar? \n1. Realizar plazo fijo en pesos \n2. Realizar plazo fijo en dólares \n3. Salir"));
-                    // APLICO SWITCH PARA DESAROLLAR LAS OPCIONES QUE PUEDE ELEGIR EL USUARIO
-                    switch (opcion) {
-                        case 1:
-                            let montoPesos = parseInt(prompt("Ingrese el monto en pesos:"));
-                            let diasPlazoPesos = parseInt(prompt("Ingrese los días del plazo:"));
-                            const tasaInteresanual = 1.18;
+    //UTILIZO .value PARA TRAER LOS VALORES OTORGADOS EN LOS CAMPOS DE TEXTO Y ALMACENARLOS EN LAS VARIABLES nombreUsuario Y contrasena
+    const nombreUsuario = nombreUsuarioInput.value;
+    const contrasena = contrasenaInput.value;
 
-                            // APLICO if PARA VER SI LOS MONTOS CUMPLEN REQUISITOS
-                            if (montoPesos >= 20000 && diasPlazoPesos >= 30) {
-                                const tasaInteres = tasaInteresanual / 365;
-                                const ganancia = calcularGanancia(montoPesos, tasaInteres, diasPlazoPesos);
-                                alert(`Plazo fijo en pesos realizado. Ganancia: ${ganancia}`);
-                            } else {
-                                alert("Monto mínimo para plazo fijo en pesos es $20000 y los días deben ser mayores a 30.");
-                            }
-                            break;
-                        case 2:
-                            let montoDolares = parseInt(prompt("Ingrese el monto en dólares:"));
-                            let diasPlazoDolares = parseInt(prompt("Ingrese los días del plazo:"));
-                            const tasaInteresanualDolar = 0.0050;
-                            // APLICO if PARA VER SI LOS MONTOS CUMPLEN REQUISITOS
-                            if (montoDolares >= 100 && diasPlazoDolares >= 30) {
-                                const tasaInteresDolares = tasaInteresanualDolar / 365;
-                                const gananciaDolares = calcularGanancia(montoDolares, tasaInteresDolares, diasPlazoDolares);
-                                alert(`Plazo fijo en dólares realizado. Ganancia: ${gananciaDolares}`);
-                            } else {
-                                alert("Monto mínimo para plazo fijo en dólares es $100 y los días deben ser mayores a 30.");
-                            }
-                            break;
-                        case 3:
-                            alert("Saliendo...");
-                            break;
-                        default:
-                            alert("Opción inválida.");
-                    }
-                    entramos = parseInt(prompt("¿Quieres generar otra simulación? 1 para sí"));
-                } while (entramos === 1);
+    //UTILIZO METODO .find() PARA VER SI EL USUARIO ESTA REGISTRADO
+    const usuarioEncontrado = usuarios.find(u => u.usuario === nombreUsuario);
 
+
+    if (usuarioEncontrado && usuarioEncontrado.contraseña === contrasena) {
+        mostrarMensaje("Inicio de sesión exitoso");
+
+        document.getElementById("formularioPesos").style.display = "block";
+        document.getElementById("formularioDolares").style.display = "block";
+
+        //DEFINO EL onclick DEL BOTON CON LA FUNCION QUE SIMULA EL PLAZO FIJO EN PESOS
+        realizarPlazoFijoPesos = function () {
+            const montoPesosInput = document.getElementById("montoPesos");
+            const diasPlazoPesosInput = document.getElementById("diasPlazoPesos");
+
+            const montoPesos = parseInt(montoPesosInput.value);
+            const diasPlazoPesos = parseInt(diasPlazoPesosInput.value);
+            const tasaInteresanual = 1.18;
+
+            //USO IF PARA VERIFICAR QUE SE CUMPLAN CONDICIONES
+            if (montoPesos >= 200000 && diasPlazoPesos >= 30) {
+                const tasaInteres = tasaInteresanual / 365;
+                const ganancia = calcularGanancia(montoPesos, tasaInteres, diasPlazoPesos);
+                const resultadoMensaje = `Plazo fijo en pesos Simulado. Monto: ${montoPesos}. Dias: ${diasPlazoPesos} Ganancia: ${ganancia}`;
+                //GUARDO RESULTADO EN LOCAL STORAGE
+                localStorage.setItem('resultadoPlazoFijo', resultadoMensaje);
+
+                // Actualizar el contenido del modal con la ganancia
+                const gananciaResultado = document.getElementById("gananciaResultado");
+                gananciaResultado.textContent = resultadoMensaje;
+
+                // MUESTRO MODAL
+                $('#gananciaModal').modal('show');
             } else {
-                alert("Usuario o contraseña incorrectos");
-                console.log("Usuario o contraseña incorrectos");
+                const errorMensaje = "Monto mínimo para plazo fijo en pesos es $200000 y los días deben ser mayores a 30.";
+                mostrarResultado(errorMensaje);
             }
-            break;
-        case "3":
-            alert("¡Hasta luego!");
-            break;
-        default:
-            alert("Opción inválida");
-            break;
+            // LIMPIO LOS INPUT
+            montoPesosInput.value = " ";
+            diasPlazoPesosInput.value = " ";
+        }
+
+        //DEFINO EL onclick DEL BOTON CON LA FUNCION QUE SIMULA EL PLAZO FIJO EN DOLARES
+        realizarPlazoFijoDolares = function () {
+            const montoDolarInput = document.getElementById("montoDolares");
+            const diasPlazoDolareInput = document.getElementById("diasPlazoDolares");
+
+            const montoDolares = parseInt(montoDolarInput.value);
+            const diasPlazoDolares = parseInt(diasPlazoDolareInput.value);
+            const tasaInteresAnualDolares = 0.0050;
+
+            //USO IF PARA VERIFICAR QUE SE CUMPLAN CONDICIONES
+            if (montoDolares >= 100 && diasPlazoDolares >= 30) {
+                const tasaInteresDolar = tasaInteresAnualDolares / 365;
+                const ganancia = calcularGanancia(montoDolares, tasaInteresDolar, diasPlazoDolares)
+                const resultadoDolarMensaje = `Pazo fijo en dolares Simulado.  Monto: ${montoDolares}. Dias: ${diasPlazoDolares} Ganancia: ${ganancia}`
+                //GUARDO RESULTADO EN LOCAL STORAGE
+                localStorage.setItem('resultadoPlazoFijoDolar', resultadoDolarMensaje);
+
+                const gananciaResultado = document.getElementById("gananciaResultado")
+                gananciaResultado.textContent = resultadoDolarMensaje;
+                // MUESTRO MODAL
+                $(`#gananciaModal`).modal(`show`);
+            } else {
+                const errorMensaje = "Monto minimo para plazo fijoi en dolares es de U$D 100 y los días deben ser mayores a 30."
+                mostrarResultado(errorMensaje);
+            }
+            // LIMPIO LOS INPUTS
+            montoDolarInput.value = " ";
+            diasPlazoDolareInput.value = " ";
+        }
+
+
+    } else {
+        mostrarMensaje("Usuario o contraseña incorrectos");
     }
+    // LIMPIO LOS INPUTS
+    nombreUsuarioInput.value = "";
+    contrasenaInput.value = "";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    // REFERENCIA DE BOTONES
+    const botonBorrarLocalStorage = document.getElementById("borrarLocalStorage")
+    const botonMostrarLocalStorage = document.getElementById("mostrarLocalStorage")
+
+    // CONTROLADOR DE EVENTO PARA BOTON PARA BORRAR MI LOCAL STORAGE
+    botonBorrarLocalStorage.addEventListener("click", function () {
+        localStorage.removeItem("resultadoPlazoFijo");
+        localStorage.removeItem("resultadoPlazoFijoDolar")
+    });
+
+    // CONTORLADOR DE EVENTO PARA BOTON QUE MUESTRA MIS ULTIMAS SIMULACIONES GUARDADAS EN EL LOCAL STORAGE
+    botonMostrarLocalStorage.addEventListener("click", function () {
+
+        const contenidoLocalStorage = localStorage.getItem("resultadoPlazoFijo");
+        const contenidoLocalStorageD = localStorage.getItem("resultadoPlazoFijoDolar");
+
+        if (contenidoLocalStorage || contenidoLocalStorageD) {
+            const contenidoParaMostrar = contenidoLocalStorage || contenidoLocalStorageD;
+
+            const contenidoLocalStorageElement = document.getElementById("Simulaciones");
+            contenidoLocalStorageElement.textContent = contenidoParaMostrar;
+
+            $(`#gananciaModal`).modal(`show`);
+        } else {
+            alert("No hay contenido en localStorage.");
+        }
+    });
+});
