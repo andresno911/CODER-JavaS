@@ -4,14 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Banco JavaS</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 
 <body>
+    <p id="fechaHoraActual" class="alert alert-secondary">
+        <strong>Fecha y hora actual:</strong>
+        <span id="fechaHoraValor"></span>
+    </p>
     <div class="container mt-5">
         <h1 class="mb-4">Simulación de Plazos Fijos</h1>
 
@@ -34,7 +36,6 @@
                 <button type="button" class="btn btn-primary" onclick="registrarUsuario()">Registrar</button>
             </form>
         </div>
-
         <!-- FORMULARIO INCIAR SESION -->
         <div id="inicioSesion">
             <h3>Iniciar Sesión</h3>
@@ -44,15 +45,13 @@
                     <input type="text" class="form-control" id="nombreUsuarioSesion">
                 </div>
                 <div class="mb-3">
-                    <label for="contrasenaSesion" class="form-label">Contraseña:</label>
+                    <labelf for="contrasenaSesion" class="form-label">Contraseña:</label>
                     <input type="password" class="form-control" id="contrasenaSesion">
                 </div>
                 <button type="button" class="btn btn-primary" onclick="iniciarSesion()">Ingresar</button>
             </form>
         </div>
     </div>
-
-
 
     <!-- FORMULARIO PLAZO FIJO -->
     <div class="divSim" id="formularioPesos" style="display: none;">
@@ -121,7 +120,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="./Js/app.js"></script>
+    <script src="/Js/app.js"></script>
 </body>
 
 </html>
