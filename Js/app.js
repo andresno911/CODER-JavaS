@@ -80,7 +80,6 @@ function iniciarSesion() {
             const tasaInteresanual = 1.18;
 
             //USO OPERADOR TERNARIO PARA VERIFICAR QUE SE CUMPLAN CONDICIONES
-
             montoPesos >= 200000 && diasPlazoPesos >= 30
                 ? (() => {
                     const tasaInteres = tasaInteresanual / 365;
